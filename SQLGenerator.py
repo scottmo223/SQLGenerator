@@ -1,7 +1,7 @@
 import csv
 
-#set file to variable
 newValuesFile = 'newValues.csv'
+sqlStatements = []
 
 #open file 
 with open(newValuesFile, newline='') as csvfile:
@@ -13,12 +13,14 @@ with open(newValuesFile, newline='') as csvfile:
         if(row['newquestiontext'] == ''):
             pass
         else:
+            #Set up sql string template
             replacementQuestion = row['newquestiontext']
             questionId = row['id']
+            sqlString = f"update OSUSR_H0L_QUESTION set QUESTIONTEXT = '{replacementQuestion}' where id = {questionId}\n"
 
-            #Set up sql string template
-            sqlString = f"update OSUSR_H0L_QUESTION set QUESTIONTEXT = '{replacementQuestion}' where id = {questionId}"
-            print(sqlString)
-
+            sqlStatements.append(sqlString)
 
 #save sql to new file
+with open('sqlFile.txt', 'w') as sqlFile:
+    for statement in sqlStatements:
+        sqlFile.write(statement)
