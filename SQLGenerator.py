@@ -10,11 +10,11 @@ with open(newValuesFile, newline='') as csvfile:
 
     #insert file object contents into string template
     for row in reader:
-        if(row['newquestiontext'] == ''):
+        if(row['newvalue'] == ''):
             pass
         else:
             #Set up sql string template
-            replacementQuestion = row['newquestiontext']
+            replacementQuestion = row['newvalue']
             questionId = row['id']
             sqlString = f"update OSUSR_H0L_QUESTION set QUESTIONTEXT = '{replacementQuestion}' where id = {questionId}\n"
 
