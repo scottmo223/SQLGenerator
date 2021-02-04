@@ -2,6 +2,8 @@ import csv
 
 newValuesFile = 'newValues.csv'
 sqlStatements = []
+table = 'OSUSR_H0L_QUESTION'
+column = 'displayorder'
 
 #open file 
 with open(newValuesFile, newline='') as csvfile:
@@ -14,9 +16,9 @@ with open(newValuesFile, newline='') as csvfile:
             pass
         else:
             #Set up sql string template
-            replacementQuestion = row['newvalue']
-            questionId = row['id']
-            sqlString = f"update OSUSR_H0L_QUESTION set QUESTIONTEXT = '{replacementQuestion}' where id = {questionId}\n"
+            newValue = row['newvalue']
+            rowId = row['id']
+            sqlString = f"update {table} set {column} = '{newValue}' where id = {rowId}\n"
 
             sqlStatements.append(sqlString)
 
