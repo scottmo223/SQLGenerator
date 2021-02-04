@@ -5,15 +5,20 @@ newValuesFile = 'newValues.csv'
 
 #open file 
 with open(newValuesFile, newline='') as csvfile:
-#save file contents to object
+    #save file contents to object
     reader = csv.DictReader(csvfile)
 
+    #insert file object contents into string template
     for row in reader:
-        print(row['id'], row['questiontext'], row['newquestiontext'])
+        if(row['newquestiontext'] == ''):
+            pass
+        else:
+            replacementQuestion = row['newquestiontext']
+            questionId = row['id']
 
+            #Set up sql string template
+            sqlString = f"update OSUSR_H0L_QUESTION set QUESTIONTEXT = '{replacementQuestion}' where id = {questionId}"
+            print(sqlString)
 
-#Set up sql string template
-
-#insert file object contents into string template
 
 #save sql to new file
